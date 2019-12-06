@@ -82,7 +82,50 @@ function callProgram(program: Memory, noun: number, verb: number) {
     currentState = nextState(currentState)
   }
 
-  return currentState
+  return currentState.memory[0]
 }
 
-console.log(callProgram(parseInput(input), 12, 2).memory[0])
+/**
+ * Generates all possible permutations of two integers. Starting from 0, 0
+ */
+function* generateNums(): Generator<[number, number], void, unknown> {
+  let currentCeiling = 0
+  let x = 0
+  let y = 0
+  yield [x, y]
+  while (true) {
+    if (x < currentCeiling) {
+      x++
+      yield [x, y]
+      if (x !== y) {
+        yield [y, x]
+      }
+      continue
+    }
+    if (y < currentCeiling) {
+      y++
+      yield [x, y]
+      if (x !== y) {
+        yield [y, x]
+      }
+      continue
+    }
+    y = 0
+    currentCeiling++
+  }
+}
+
+const program = parseInput(input)
+
+for (const [noun, verb] of generateNums()) {
+  const result = callProgram(program, noun, verb)
+  console.log(`
+    Noun: ${noun}
+    Verb: ${verb}
+        = ${result}
+  `)
+  if (result === 19690720) {
+    console.log(`Part 2 result = ${100 * noun + verb}`)
+    break
+  }
+}
