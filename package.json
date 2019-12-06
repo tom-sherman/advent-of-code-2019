@@ -1,0 +1,12 @@
+{
+  "name": "advent-of-code-2019",
+  "author": "Tom Sherman <the.tomsherman@gmail.com>",
+  "scripts": {
+    "build": "tsc",
+    "start": "npm run build && node run.js"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^3.7.3"
+  }
+}
