@@ -2,7 +2,7 @@ import input from './input'
 
 const parseInput = (input: string): Memory => input.split(',').map(x => parseInt(x))
 
-type Memory = number[]
+type Memory = readonly number[]
 type Opcode = 1 | 2 | 99
 type Instruction = [Opcode, number, number, number]
 /**
