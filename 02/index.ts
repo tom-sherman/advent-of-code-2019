@@ -1,6 +1,7 @@
 import input from './input'
 
-const parseInput = (input: string): Memory => input.split(',').map(x => parseInt(x))
+const parseInput = (input: string): Memory =>
+  input.split(',').map(x => parseInt(x))
 
 type Memory = readonly number[]
 type Opcode = 1 | 2 | 99
@@ -24,9 +25,12 @@ type State = {
 
 function executeOpcode(op: Opcode, x: number, y: number): OpcodeResult {
   switch (op) {
-    case 1: return x + y
-    case 2: return x * y
-    case 99: return 'halt'
+    case 1:
+      return x + y
+    case 2:
+      return x * y
+    case 99:
+      return 'halt'
   }
 }
 
@@ -36,7 +40,10 @@ function storeValue(value: number, address: number, memory: Memory): Memory {
   return newProgram
 }
 
-function exectuteInstruction([op, param1, param2, storePos]: Instruction, memory: Memory): InstructionResult {
+function exectuteInstruction(
+  [op, param1, param2, storePos]: Instruction,
+  memory: Memory
+): InstructionResult {
   const result = executeOpcode(op, memory[param1], memory[param2])
   if (result === 'halt') {
     return {
